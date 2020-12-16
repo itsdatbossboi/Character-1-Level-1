@@ -1,0 +1,37 @@
+{
+    "name": "testgun",
+    "description": "",
+    "dependencies": {
+        "device": "*",
+        "animation": "*",
+        "pxt-button-combos": "github:jwunderl/pxt-button-combos#v0.0.24",
+        "pxt-status-bar": "github:jwunderl/pxt-status-bar#v0.3.1",
+        "arcade-text": "github:microsoft/arcade-text#v1.3.0",
+        "radio": "*",
+        "radio-broadcast": "*",
+        "storyboard": "*",
+        "tilemaps": "github:microsoft/pxt-tilemaps#v1.10.0"
+    },
+    "files": [
+        "main.blocks",
+        "main.ts",
+        "README.md",
+        "tilemap.g.jres",
+        "tilemap.g.ts"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "targetVersions": {
+        "branch": "v1.2.9",
+        "tag": "v1.2.9",
+        "commits": "https://github.com/microsoft/pxt-arcade/commits/2b200900459096720c107eba4cbfa0388ee2c1cd",
+        "target": "1.2.16",
+        "pxt": "6.2.22",
+        "targetId": "arcade"
+    },
+    "supportedTargets": [
+        "arcade"
+    ],
+    "preferredEditor": "blocksprj"
+}
