@@ -97,20 +97,10 @@ music.playMelody("C E F C5 G B C5 - ", 600)
 statusbar3 = statusbars.create(20, 4, StatusBarKind.EnemyHealth)
 statusbar3.attachToSprite(myEnemy)
 forever(function () {
-    while (controller.anyButton.isPressed()) {
-        pause(5000)
-        statusbar2.value += -1
-    }
-})
-forever(function () {
     pause(500)
     while (mySprite.overlapsWith(myEnemy)) {
-        pause(500)
         statusbar.value += -10
         statusbar2.value += -1
+        statusbar3.value += -1
     }
-})
-forever(function () {
-    pause(1000)
-    statusbar.value += 1
 })
