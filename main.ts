@@ -99,6 +99,7 @@ statusbar3.attachToSprite(myEnemy)
 forever(function () {
     pause(500)
     while (mySprite.overlapsWith(myEnemy)) {
+        pause(500)
         statusbar.value += -10
         statusbar2.value += -1
         statusbar3.value += -1
