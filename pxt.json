@@ -10,7 +10,16 @@
         "radio": "*",
         "radio-broadcast": "*",
         "storyboard": "*",
-        "tilemaps": "github:microsoft/pxt-tilemaps#v1.10.0"
+        "tilemaps": "github:microsoft/pxt-tilemaps#v1.10.0",
+        "Timers": "github:microsoft/arcade-timers#v1.1.0",
+        "light": "*",
+        "controller": "*",
+        "darts": "*",
+        "edge-connector": "*",
+        "keyboard": "*",
+        "mouse": "*",
+        "color-coded-tilemap": "*",
+        "Color Fading": "github:jwunderl/pxt-color#v0.2.0"
     },
     "files": [
         "main.blocks",
