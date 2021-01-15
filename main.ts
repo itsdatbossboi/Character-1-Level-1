@@ -1,6 +1,9 @@
 enum RadioMessage {
     message1 = 49434
 }
+namespace StatusBarKind {
+    export const Kills = StatusBarKind.create()
+}
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     animation.runImageAnimation(
     mySprite,
@@ -244,10 +247,12 @@ controller.left.onEvent(ControllerButtonEvent.Released, function () {
     }
 })
 statusbars.onStatusReached(StatusBarKind.Health, statusbars.StatusComparison.EQ, statusbars.ComparisonType.Percentage, 0, function (status) {
-    game.over(false)
+    info.changeLifeBy(-1)
+    statusbar.value = 100
 })
 statusbars.onZero(StatusBarKind.EnemyHealth, function (status) {
     myEnemy.destroy(effects.fire, 200)
+    info.changeScoreBy(1)
 })
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     animation.runImageAnimation(
@@ -430,13 +435,17 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     true
     )
 })
+info.onLifeZero(function () {
+    statusbar.value = 0
+    game.over(false)
+})
 controller.combos.attachSpecialCode(function () {
     statusbar3.value += -10
 })
 let statusbar3: StatusBarSprite = null
 let myEnemy: Sprite = null
+let statusbar: StatusBarSprite = null
 let mySprite: Sprite = null
-light.showAnimation(light.colorWipeAnimation, 100)
 mySprite = sprites.create(img`
     ........................
     .....ffff...............
@@ -482,7 +491,7 @@ tiles.setTilemap(tiles.createTilemap(hex`100010000101010101010101010101010101010
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
     `, [myTiles.transparency16,sprites.castle.tilePath5,sprites.castle.tileGrass1,sprites.castle.tileGrass3,sprites.castle.tileGrass2,sprites.castle.tilePath6,sprites.castle.tilePath7,sprites.castle.tileDarkGrass3,sprites.castle.tileDarkGrass2,sprites.castle.tileDarkGrass1,sprites.castle.tilePath3,sprites.castle.tilePath1,sprites.castle.tilePath8], TileScale.Sixteen))
-let statusbar = statusbars.create(20, 4, StatusBarKind.Health)
+statusbar = statusbars.create(20, 4, StatusBarKind.Health)
 let statusbar2 = statusbars.create(5, 4, StatusBarKind.Energy)
 statusbar.setStatusBarFlag(StatusBarFlag.SmoothTransition, true)
 statusbar.attachToSprite(mySprite)
@@ -523,11 +532,23 @@ music.playMelody("C E F C5 G B C5 - ", 600)
 statusbar3 = statusbars.create(20, 4, StatusBarKind.EnemyHealth)
 statusbar3.attachToSprite(myEnemy)
 statusbar3.max = 20
+info.setLife(3)
+forever(function () {
+    if (info.score() == 1) {
+        game.over(true)
+    } else {
+    	
+    }
+})
 forever(function () {
     pause(500)
     while (mySprite.overlapsWith(myEnemy)) {
-        pause(500)
-        statusbar.value += -10
+        if (controller.A.isPressed()) {
+            pause(200)
+            statusbar3.value += -1
+        }
+        pause(600)
+        statusbar.value += -5
         statusbar2.value += -1
         statusbar3.value += -1
     }
