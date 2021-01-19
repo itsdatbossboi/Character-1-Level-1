@@ -1,5 +1,5 @@
 {
-    "name": "testgun",
+    "name": "Test Game",
     "description": "",
     "dependencies": {
         "device": "*",
