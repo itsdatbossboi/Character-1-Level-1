@@ -250,9 +250,8 @@ statusbars.onStatusReached(StatusBarKind.Health, statusbars.StatusComparison.EQ,
     info.changeLifeBy(-1)
     statusbar.value = 100
 })
-statusbars.onZero(StatusBarKind.EnemyHealth, function (status) {
-    myEnemy.destroy(effects.fire, 200)
-    info.changeScoreBy(1)
+info.onCountdownEnd(function () {
+    game.over(false, effects.melt)
 })
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     animation.runImageAnimation(
@@ -441,10 +440,10 @@ info.onLifeZero(function () {
 })
 controller.combos.attachSpecialCode(function () {
     statusbar3.value += -10
-    statusbar.value += -20
+    statusbar4.value += -10
 })
 let statusbar3: StatusBarSprite = null
-let myEnemy: Sprite = null
+let statusbar4: StatusBarSprite = null
 let statusbar: StatusBarSprite = null
 let mySprite: Sprite = null
 mySprite = sprites.create(img`
@@ -485,7 +484,7 @@ statusbar2.setOffsetPadding(-12.5, 0)
 statusbar.setOffsetPadding(-2, 0)
 statusbar2.max = 20
 scene.cameraFollowSprite(mySprite)
-myEnemy = sprites.create(img`
+let myEnemy = sprites.create(img`
     ........................
     ........................
     ........................
@@ -541,7 +540,7 @@ let myEnemy2 = sprites.create(img`
     `, SpriteKind.Enemy)
 myEnemy2.setPosition(100, 21)
 myEnemy2.follow(mySprite, 50)
-let statusbar4 = statusbars.create(20, 4, StatusBarKind.EnemyHealth)
+statusbar4 = statusbars.create(20, 4, StatusBarKind.EnemyHealth)
 statusbar3 = statusbars.create(20, 4, StatusBarKind.EnemyHealth)
 statusbar4.setStatusBarFlag(StatusBarFlag.SmoothTransition, true)
 statusbar3.setStatusBarFlag(StatusBarFlag.SmoothTransition, true)
@@ -552,6 +551,7 @@ statusbar4.max = 20
 let status_bar_list = statusbars.allOfKind(StatusBarKind.EnemyHealth)
 info.setLife(1)
 music.playMelody("C E F C5 G B C5 - ", 600)
+info.startCountdown(600)
 game.onUpdateInterval(1000, function () {
     statusbar.value += 1
 })
@@ -751,6 +751,22 @@ forever(function () {
         500,
         false
         )
+    }
+})
+forever(function () {
+    if (statusbar4.value == 0) {
+        myEnemy2.destroy(effects.rings, 200)
+        info.changeScoreBy(1)
+    } else {
+    	
+    }
+})
+forever(function () {
+    if (statusbar3.value == 0) {
+        myEnemy.destroy(effects.rings, 200)
+        info.changeScoreBy(1)
+    } else {
+    	
     }
 })
 forever(function () {
