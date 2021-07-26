@@ -246,11 +246,11 @@ controller.left.onEvent(ControllerButtonEvent.Released, function () {
         )
     }
 })
-statusbars.onStatusReached(StatusBarKind.Health, statusbars.StatusComparison.EQ, statusbars.ComparisonType.Percentage, 0, function (status) {
-    game.over(false)
-})
 info.onCountdownEnd(function () {
     game.over(false, effects.melt)
+})
+statusbars.onStatusReached(StatusBarKind.Health, statusbars.StatusComparison.LTE, statusbars.ComparisonType.Percentage, 0, function (status) {
+    game.over(false)
 })
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     animation.runImageAnimation(
