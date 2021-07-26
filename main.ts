@@ -472,7 +472,6 @@ mySprite = sprites.create(img`
     ........................
     ........................
     `, SpriteKind.Player)
-mySprite.setVelocity(75, 75)
 controller.moveSprite(mySprite)
 tiles.setTilemap(tilemap`level1`)
 statusbar = statusbars.create(20, 4, StatusBarKind.Health)
@@ -751,11 +750,6 @@ forever(function () {
         500,
         false
         )
-    }
-})
-forever(function () {
-    if (statusbar.value <= 0) {
-        mySprite.setVelocity(50, 50)
     }
 })
 forever(function () {
