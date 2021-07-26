@@ -450,6 +450,7 @@ info.onLifeZero(function () {
 })
 controller.combos.attachSpecialCode(function () {
     statusbar3.value += -10
+    statusbar.value += -20
 })
 let statusbar3: StatusBarSprite = null
 let statusbar4: StatusBarSprite = null
@@ -484,24 +485,7 @@ mySprite = sprites.create(img`
     ........................
     `, SpriteKind.Player)
 controller.moveSprite(mySprite)
-tiles.setTilemap(tiles.createTilemap(hex`100010000101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010c010101010101010101010101010105020601010101010101010101010101010304060101010101010101010101010503020406010101010101010101010105040708020101010101010101010101010a020904010101010101010101010101010a030b010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101`, img`
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    `, [myTiles.transparency16,sprites.castle.tilePath5,sprites.castle.tileGrass1,sprites.castle.tileGrass3,sprites.castle.tileGrass2,sprites.castle.tilePath6,sprites.castle.tilePath7,sprites.castle.tileDarkGrass3,sprites.castle.tileDarkGrass2,sprites.castle.tileDarkGrass1,sprites.castle.tilePath3,sprites.castle.tilePath1,sprites.castle.tilePath8], TileScale.Sixteen))
+tiles.setTilemap(tilemap`level1`)
 statusbar = statusbars.create(20, 4, StatusBarKind.Health)
 statusbar2 = statusbars.create(5, 4, StatusBarKind.Energy)
 statusbar.setStatusBarFlag(StatusBarFlag.SmoothTransition, true)
@@ -575,7 +559,7 @@ statusbar4.attachToSprite(myEnemy2)
 statusbar3.attachToSprite(myEnemy)
 statusbar3.max = 20
 statusbar4.max = 20
-info.setLife(3)
+info.setLife(2)
 music.playMelody("C E F C5 G B C5 - ", 600)
 game.onUpdateInterval(1000, function () {
     statusbar2.value += 1
