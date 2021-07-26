@@ -19,7 +19,10 @@
         "keyboard": "*",
         "mouse": "*",
         "color-coded-tilemap": "*",
-        "Color Fading": "github:jwunderl/pxt-color#v0.2.0"
+        "Color Fading": "github:jwunderl/pxt-color#v0.2.0",
+        "arcade-character-animations": "github:microsoft/arcade-character-animations#v0.0.2",
+        "arcade-story": "github:microsoft/arcade-storytelling#v1.0.2",
+        "arcade-background-scroll": "github:microsoft/arcade-background-scroll#ef27275c570030c09dd1b9e0db2f63a8844b0848"
     },
     "files": [
         "main.blocks",

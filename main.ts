@@ -550,8 +550,11 @@ statusbar3.attachToSprite(myEnemy)
 statusbar3.max = 20
 statusbar4.max = 20
 let status_bar_list = statusbars.allOfKind(StatusBarKind.EnemyHealth)
-info.setLife(2)
+info.setLife(1)
 music.playMelody("C E F C5 G B C5 - ", 600)
+game.onUpdateInterval(1000, function () {
+    statusbar.value += 1
+})
 game.onUpdateInterval(1000, function () {
     statusbar2.value += 1
 })
