@@ -80,15 +80,6 @@ controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     true
     )
 })
-controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (statusbar2.value < 0) {
-        statusbar2.value += -1
-        statusbar3.value += -3
-        statusbar4.value += -3
-    } else {
-    	
-    }
-})
 statusbars.onStatusReached(StatusBarKind.Health, statusbars.StatusComparison.LTE, statusbars.ComparisonType.Percentage, 25, function (status) {
     music.playMelody("F A F A F A - - ", 250)
 })
@@ -453,9 +444,7 @@ controller.combos.attachSpecialCode(function () {
     statusbar.value += -20
 })
 let statusbar3: StatusBarSprite = null
-let statusbar4: StatusBarSprite = null
 let myEnemy: Sprite = null
-let statusbar2: StatusBarSprite = null
 let statusbar: StatusBarSprite = null
 let mySprite: Sprite = null
 mySprite = sprites.create(img`
@@ -484,10 +473,11 @@ mySprite = sprites.create(img`
     ........................
     ........................
     `, SpriteKind.Player)
+mySprite.setVelocity(75, 75)
 controller.moveSprite(mySprite)
 tiles.setTilemap(tilemap`level1`)
 statusbar = statusbars.create(20, 4, StatusBarKind.Health)
-statusbar2 = statusbars.create(5, 4, StatusBarKind.Energy)
+let statusbar2 = statusbars.create(5, 4, StatusBarKind.Energy)
 statusbar.setStatusBarFlag(StatusBarFlag.SmoothTransition, true)
 statusbar.attachToSprite(mySprite)
 statusbar2.attachToSprite(mySprite)
@@ -551,7 +541,7 @@ let myEnemy2 = sprites.create(img`
     `, SpriteKind.Enemy)
 myEnemy2.setPosition(100, 21)
 myEnemy2.follow(mySprite, 50)
-statusbar4 = statusbars.create(20, 4, StatusBarKind.EnemyHealth)
+let statusbar4 = statusbars.create(20, 4, StatusBarKind.EnemyHealth)
 statusbar3 = statusbars.create(20, 4, StatusBarKind.EnemyHealth)
 statusbar4.setStatusBarFlag(StatusBarFlag.SmoothTransition, true)
 statusbar3.setStatusBarFlag(StatusBarFlag.SmoothTransition, true)
@@ -559,6 +549,7 @@ statusbar4.attachToSprite(myEnemy2)
 statusbar3.attachToSprite(myEnemy)
 statusbar3.max = 20
 statusbar4.max = 20
+let status_bar_list = statusbars.allOfKind(StatusBarKind.EnemyHealth)
 info.setLife(2)
 music.playMelody("C E F C5 G B C5 - ", 600)
 game.onUpdateInterval(1000, function () {
@@ -572,7 +563,7 @@ forever(function () {
     }
 })
 forever(function () {
-    pause(500)
+    pause(100)
     while (mySprite.overlapsWith(myEnemy)) {
         if (controller.A.isPressed()) {
             pause(200)
@@ -664,6 +655,9 @@ forever(function () {
         false
         )
     }
+})
+forever(function () {
+    pause(100)
     while (mySprite.overlapsWith(myEnemy2)) {
         if (controller.A.isPressed()) {
             pause(200)
@@ -754,5 +748,10 @@ forever(function () {
         500,
         false
         )
+    }
+})
+forever(function () {
+    if (statusbar.value <= 0) {
+        mySprite.setVelocity(50, 50)
     }
 })
