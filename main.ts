@@ -754,6 +754,11 @@ forever(function () {
     }
 })
 forever(function () {
+    if (statusbar.value <= 0) {
+        mySprite.setVelocity(50, 50)
+    }
+})
+forever(function () {
     if (statusbar4.value == 0) {
         myEnemy2.destroy(effects.rings, 200)
         info.changeScoreBy(1)
@@ -767,10 +772,5 @@ forever(function () {
         info.changeScoreBy(1)
     } else {
     	
-    }
-})
-forever(function () {
-    if (statusbar.value <= 0) {
-        mySprite.setVelocity(50, 50)
     }
 })
