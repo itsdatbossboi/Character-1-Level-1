@@ -3,6 +3,8 @@ enum RadioMessage {
 }
 namespace StatusBarKind {
     export const Kills = StatusBarKind.create()
+    export const EnemyHP1 = StatusBarKind.create()
+    export const EnemyHP2 = StatusBarKind.create()
 }
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     animation.runImageAnimation(
@@ -79,6 +81,15 @@ controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     100,
     true
     )
+})
+controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
+    pause(5000)
+    if (statusbar2.value > 3) {
+        statusbar.value += 10
+        statusbar2.value += -1
+    } else {
+    	
+    }
 })
 statusbars.onStatusReached(StatusBarKind.Health, statusbars.StatusComparison.LTE, statusbars.ComparisonType.Percentage, 25, function (status) {
     music.playMelody("F A F A F A - - ", 250)
@@ -251,6 +262,10 @@ info.onCountdownEnd(function () {
 })
 statusbars.onStatusReached(StatusBarKind.Health, statusbars.StatusComparison.LTE, statusbars.ComparisonType.Percentage, 0, function (status) {
     game.over(false)
+})
+statusbars.onZero(StatusBarKind.EnemyHP2, function (status) {
+    myEnemy2.destroy(effects.rings, 200)
+    info.changeScoreBy(1)
 })
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     animation.runImageAnimation(
@@ -433,6 +448,10 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     true
     )
 })
+statusbars.onZero(StatusBarKind.EnemyHP1, function (status) {
+    myEnemy.destroy(effects.rings, 200)
+    info.changeScoreBy(1)
+})
 controller.combos.attachSpecialCode(function () {
     statusbar.value += -20
     statusbar3.value += -10
@@ -440,6 +459,9 @@ controller.combos.attachSpecialCode(function () {
 })
 let statusbar3: StatusBarSprite = null
 let statusbar4: StatusBarSprite = null
+let myEnemy2: Sprite = null
+let myEnemy: Sprite = null
+let statusbar2: StatusBarSprite = null
 let statusbar: StatusBarSprite = null
 let mySprite: Sprite = null
 mySprite = sprites.create(img`
@@ -468,18 +490,21 @@ mySprite = sprites.create(img`
     ........................
     ........................
     `, SpriteKind.Player)
+let feedme = sprites.create(assets.image`taco`, SpriteKind.Food)
+feedme.setPosition(0, 120)
 controller.moveSprite(mySprite)
 tiles.setTilemap(tilemap`level1`)
 statusbar = statusbars.create(20, 4, StatusBarKind.Health)
-let statusbar2 = statusbars.create(5, 4, StatusBarKind.Energy)
+statusbar2 = statusbars.create(5, 4, StatusBarKind.Energy)
 statusbar.setStatusBarFlag(StatusBarFlag.SmoothTransition, true)
 statusbar.attachToSprite(mySprite)
+statusbar.max = 100
 statusbar2.attachToSprite(mySprite)
 statusbar2.setOffsetPadding(-12.5, 0)
 statusbar.setOffsetPadding(-2, 0)
 statusbar2.max = 20
 scene.cameraFollowSprite(mySprite)
-let myEnemy = sprites.create(img`
+myEnemy = sprites.create(img`
     ........................
     ........................
     ........................
@@ -507,7 +532,7 @@ let myEnemy = sprites.create(img`
     `, SpriteKind.Enemy)
 myEnemy.setPosition(28, 21)
 myEnemy.follow(mySprite, 50)
-let myEnemy2 = sprites.create(img`
+myEnemy2 = sprites.create(img`
     ........................
     ........................
     ........................
@@ -535,8 +560,8 @@ let myEnemy2 = sprites.create(img`
     `, SpriteKind.Enemy)
 myEnemy2.setPosition(100, 21)
 myEnemy2.follow(mySprite, 50)
-statusbar4 = statusbars.create(20, 4, StatusBarKind.EnemyHealth)
-statusbar3 = statusbars.create(20, 4, StatusBarKind.EnemyHealth)
+statusbar4 = statusbars.create(20, 4, StatusBarKind.EnemyHP2)
+statusbar3 = statusbars.create(20, 4, StatusBarKind.EnemyHP1)
 statusbar4.setStatusBarFlag(StatusBarFlag.SmoothTransition, true)
 statusbar3.setStatusBarFlag(StatusBarFlag.SmoothTransition, true)
 statusbar4.attachToSprite(myEnemy2)
@@ -547,10 +572,7 @@ let status_bar_list = statusbars.allOfKind(StatusBarKind.EnemyHealth)
 info.setLife(1)
 music.playMelody("C E F C5 G B C5 - ", 600)
 info.startCountdown(600)
-game.onUpdateInterval(1000, function () {
-    statusbar.value += 1
-})
-game.onUpdateInterval(1000, function () {
+game.onUpdateInterval(5000, function () {
     statusbar2.value += 1
 })
 forever(function () {
@@ -749,18 +771,14 @@ forever(function () {
     }
 })
 forever(function () {
-    if (statusbar4.value == 0) {
-        myEnemy2.destroy(effects.rings, 200)
-        info.changeScoreBy(1)
+    if (mySprite.overlapsWith(feedme)) {
+        statusbar.max = 150
+        statusbar.value += 25
+        feedme.destroy(effects.disintegrate, 500)
     } else {
     	
     }
 })
-forever(function () {
-    if (statusbar3.value == 0) {
-        myEnemy.destroy(effects.rings, 200)
-        info.changeScoreBy(1)
-    } else {
-    	
-    }
+game.onUpdateInterval(500, function () {
+    statusbar.value += 1
 })
