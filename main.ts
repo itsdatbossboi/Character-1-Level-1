@@ -453,7 +453,7 @@ statusbars.onZero(StatusBarKind.EnemyHP1, function (status) {
     info.changeScoreBy(1)
 })
 controller.combos.attachSpecialCode(function () {
-    statusbar.value += -20
+    statusbar.value += -50
     statusbar3.value += -10
     statusbar4.value += -10
 })
@@ -464,6 +464,9 @@ let myEnemy: Sprite = null
 let statusbar2: StatusBarSprite = null
 let statusbar: StatusBarSprite = null
 let mySprite: Sprite = null
+tiles.setTilemap(tilemap`level5`)
+game.splash("Press A to Start!")
+tiles.setTilemap(tilemap`level1`)
 mySprite = sprites.create(img`
     ........................
     .....ffff...............
@@ -493,7 +496,6 @@ mySprite = sprites.create(img`
 let feedme = sprites.create(assets.image`taco`, SpriteKind.Food)
 feedme.setPosition(0, 120)
 controller.moveSprite(mySprite)
-tiles.setTilemap(tilemap`level1`)
 statusbar = statusbars.create(20, 4, StatusBarKind.Health)
 statusbar2 = statusbars.create(5, 4, StatusBarKind.Energy)
 statusbar.setStatusBarFlag(StatusBarFlag.SmoothTransition, true)
@@ -570,13 +572,13 @@ statusbar3.max = 20
 statusbar4.max = 20
 let status_bar_list = statusbars.allOfKind(StatusBarKind.EnemyHealth)
 info.setLife(1)
-music.playMelody("C E F C5 G B C5 - ", 600)
 info.startCountdown(600)
-game.onUpdateInterval(5000, function () {
+game.onUpdateInterval(2000, function () {
     statusbar2.value += 1
 })
 forever(function () {
     if (info.score() == 2) {
+        pause(500)
         game.over(true)
     } else {
     	
