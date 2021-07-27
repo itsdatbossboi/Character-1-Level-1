@@ -434,11 +434,13 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     )
 })
 controller.combos.attachSpecialCode(function () {
+    statusbar.value += -20
     statusbar3.value += -10
     statusbar4.value += -10
 })
 let statusbar3: StatusBarSprite = null
 let statusbar4: StatusBarSprite = null
+let statusbar: StatusBarSprite = null
 let mySprite: Sprite = null
 mySprite = sprites.create(img`
     ........................
@@ -468,7 +470,7 @@ mySprite = sprites.create(img`
     `, SpriteKind.Player)
 controller.moveSprite(mySprite)
 tiles.setTilemap(tilemap`level1`)
-let statusbar = statusbars.create(20, 4, StatusBarKind.Health)
+statusbar = statusbars.create(20, 4, StatusBarKind.Health)
 let statusbar2 = statusbars.create(5, 4, StatusBarKind.Energy)
 statusbar.setStatusBarFlag(StatusBarFlag.SmoothTransition, true)
 statusbar.attachToSprite(mySprite)
@@ -744,11 +746,6 @@ forever(function () {
         500,
         false
         )
-    }
-})
-forever(function () {
-    if (true) {
-    	
     }
 })
 forever(function () {
